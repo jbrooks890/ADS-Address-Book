@@ -1,8 +1,12 @@
 :root {
+  --mid: hsl(202, 79%, 64%);
 }
 
 html {
   background-color: #eee;
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
   font: {
     family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     weight: 400;
@@ -13,4 +17,46 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+
+  &-track {
+    background: transparent;
+    // margin: {
+    //   block: 0.5em;
+    // }
+  }
+
+  &-thumb {
+    cursor: grab;
+    background: var(--mid);
+    border-radius: 100px;
+  }
+}
+
+.flex {
+  display: flex;
+
+  &.col {
+    flex-direction: column;
+  }
+
+  &.middle {
+    align-items: center;
+  }
+
+  &.center {
+    justify-content: center;
+    align-items: center;
+  }
 }

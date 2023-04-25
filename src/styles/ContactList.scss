@@ -1,34 +1,67 @@
-.contact-list {
+.wrapper {
+  position: relative;
   width: 480px;
-  overflow: hidden;
-  border: 1px solid red {
-    collapse: collapse;
+  height: 100%;
+  margin-right: 2vw;
+  border: 2px solid #ddd {
+    radius: 10px;
   }
+  // padding-inline: 1rem;
 
-  thead {
-    tr {
-      background-color: deepskyblue;
+  .contact-list-wrap {
+    position: relative;
+    width: 100%;
+    overflow-y: hidden;
+    padding: 1em {
+      right: 0.5em;
     }
-  }
 
-  tbody {
-    tr {
-      cursor: pointer;
+    .header {
+      background-color: var(--mid);
+    }
 
-      &.selected {
-        background-color: deepskyblue;
-      }
+    .contact-list {
+      margin: 0;
+      padding-inline: 0.5em;
+      height: 100%;
+      // border: 1px solid orange;
+      overflow: hidden scroll;
 
-      td {
-        white-space: nowrap;
-        text-overflow: ellipsis;
+      li {
+        justify-content: space-between;
+        padding: 0.25em 1em;
+        border-radius: 5px;
+
+        &.selected {
+          background-color: var(--mid);
+          cursor: default;
+          color: white;
+        }
+
+        &:not(.selected) {
+          cursor: pointer;
+        }
+
+        &:not(:last-of-type) {
+          border-bottom: 1px solid hsla(0, 0%, 0%, 0.05);
+        }
+
+        div {
+          white-space: nowrap;
+          text-overflow: ellipsis;
+
+          &:first-of-type {
+            text-align: left;
+            font-weight: 500;
+          }
+        }
       }
     }
-  }
 
-  @media (hover: hover) {
-    tbody tr:hover {
-      background-color: deepskyblue;
+    @media (hover: hover) {
+      .contact-list li:not(.selected):hover {
+        background-color: hsla(0, 0%, 0%, 0.05);
+      }
     }
   }
 }

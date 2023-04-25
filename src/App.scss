@@ -1,15 +1,65 @@
 .App {
   text-align: center;
+  height: 100vh;
+  overflow: hidden;
+  flex-grow: 1;
 }
 
-.flex {
-  display: flex;
+header {
+  background-color: silver;
+  align-self: stretch;
+  margin-bottom: 1rem;
 
-  &.col {
-    flex-direction: column;
+  h1 {
+    text-transform: uppercase;
+    font-size: 1.5em;
   }
+}
 
-  &.middle {
-    align-items: center;
+.contact-search {
+  appearance: none;
+  margin-bottom: 1em;
+  background-color: transparent;
+  outline: none;
+  padding: 1em;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1;
+  border: 2px solid var(--mid) {
+    radius: 100px;
+  }
+}
+
+.contact-box {
+  overflow: hidden;
+
+  &.cards-view {
+    flex-direction: column;
+    overflow-y: scroll;
+  }
+}
+
+.mode-selector {
+  margin-bottom: 1em;
+  button {
+    appearance: none;
+    border: none;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--mid);
+    font-size: small;
+    padding-inline: 1em;
+
+    &.active {
+      color: silver;
+    }
+
+    &.inactive {
+      cursor: pointer;
+    }
+
+    &:not(:last-of-type) {
+      border-right: 1px solid hsla(0, 0%, 0%, 0.1);
+    }
   }
 }

@@ -22,16 +22,17 @@ export type Contact = {
 export type State = {
   data: Contact[] | null;
   selected: Contact | null;
-  output: Contact[] | null;
   search: string;
   filter: string;
+  view: "split" | "table" | "cards";
 };
 
-type Action =
+export type Action =
   | { type: "load"; payload: Contact[] }
   | { type: "select"; payload: Contact }
   | { type: "search"; payload: string }
-  | { type: "filter"; payload: string };
+  | { type: "filter"; payload: string }
+  | { type: "view"; payload: State["view"] };
 
 export default function App() {
   const initialState: State = {
@@ -39,6 +40,7 @@ export default function App() {
     selected: null,
     search: "",
     filter: "",
+    view: "cards",
   };
 
   const reducer = (state: typeof initialState, action: Action): State => {
@@ -50,6 +52,8 @@ export default function App() {
         return { ...state, selected: payload };
       case "search":
         return { ...state, search: payload };
+      case "view":
+        return { ...state, view: payload };
       case "filter":
       default:
         return state;
@@ -94,30 +98,59 @@ export default function App() {
     dispatch({ type: "search", payload: e.target.value });
   };
 
+  const renderView = () => {
+    const output = state.data!.filter(contact =>
+      contact.ContactName.match(new RegExp(state.search, "i"))
+    );
+
+    switch (state.view) {
+      case "split":
+        return (
+          <>
+            <ContactList contacts={output} state={state} dispatch={dispatch} />
+            {state.selected ? (
+              <ContactCard contact={state.selected} />
+            ) : (
+              <h2>Select Contact</h2>
+            )}
+          </>
+        );
+      case "cards":
+        return output.map((contact, i) => (
+          <ContactCard key={i} contact={contact} />
+        ));
+      case "table":
+        return;
+    }
+  };
+
   return (
     <div className="App flex col middle">
       <header>
         <h1>Address Book</h1>
       </header>
-      <h1>Contacts</h1>
       <input
         type="text"
         className="contact-search"
-        placeholder="Search contacts"
-        onChange={e => dispatch({ type: "" })}
+        placeholder="Search Name"
+        onChange={e => searchContact(e)}
       />
+      <div className="mode-selector flex">
+        {"split cards table".split(" ").map((mode, i) => (
+          <button
+            key={i}
+            className={state.view === mode ? "active" : "inactive"}
+            onClick={() =>
+              dispatch({ type: "view", payload: mode as State["view"] })
+            }
+          >
+            {mode}
+          </button>
+        ))}
+      </div>
       {state.data && (
-        <div className="contact-box flex middle">
-          <ContactList
-            contacts={state.data}
-            state={state}
-            dispatch={dispatch}
-          />
-          {state.selected ? (
-            <ContactCard contact={state.selected} />
-          ) : (
-            "Select a contact"
-          )}
+        <div className={`contact-box flex ${state.view}-view`}>
+          {renderView()}
         </div>
       )}
       <footer>Julian Brooks</footer>
