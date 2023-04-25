@@ -49,6 +49,7 @@ header {
     color: var(--mid);
     font-size: small;
     padding-inline: 1em;
+    background-color: transparent;
 
     &.active {
       color: silver;

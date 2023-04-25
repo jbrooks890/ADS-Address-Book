@@ -40,7 +40,7 @@ export default function App() {
     selected: null,
     search: "",
     filter: "",
-    view: "cards",
+    view: "split",
   };
 
   const reducer = (state: typeof initialState, action: Action): State => {
@@ -133,12 +133,14 @@ export default function App() {
         type="text"
         className="contact-search"
         placeholder="Search Name"
+        spellCheck={false}
         onChange={e => searchContact(e)}
       />
       <div className="mode-selector flex">
         {"split cards table".split(" ").map((mode, i) => (
           <button
             key={i}
+            type="button"
             className={state.view === mode ? "active" : "inactive"}
             onClick={() =>
               dispatch({ type: "view", payload: mode as State["view"] })
