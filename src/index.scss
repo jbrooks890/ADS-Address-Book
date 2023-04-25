@@ -1,0 +1,16 @@
+:root {
+}
+
+html {
+  background-color: #eee;
+  font: {
+    family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    weight: 400;
+    synthesis: none;
+  }
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}

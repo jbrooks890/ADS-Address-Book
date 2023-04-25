@@ -1,0 +1,15 @@
+.App {
+  text-align: center;
+}
+
+.flex {
+  display: flex;
+
+  &.col {
+    flex-direction: column;
+  }
+
+  &.middle {
+    align-items: center;
+  }
+}
