@@ -12,9 +12,9 @@ export default function ContactFilter({ state, dispatch }: Props) {
   const toggle = () => setOpen(prev => !prev);
 
   const HEADERS =
-    `ContactName Phone Email CustomerID ContactTitle CompanyName Address City Country PostalCode Fax Region`.split(
-      " "
-    );
+    `ContactName Phone Email CustomerID ContactTitle CompanyName Address City Country PostalCode Fax Region`
+      .split(" ")
+      .sort();
 
   const select = (payload: State["filter"]) => {
     fieldRef.current.forEach(
@@ -80,7 +80,7 @@ export default function ContactFilter({ state, dispatch }: Props) {
                   {field}
                 </span>
                 <ul className="sub-menu">
-                  {[...options].map((option, j) => (
+                  {[...options].sort().map((option, j) => (
                     <li key={j} onClick={() => select({ [field]: option })}>
                       {option}
                     </li>
