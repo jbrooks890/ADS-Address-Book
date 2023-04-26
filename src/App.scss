@@ -27,6 +27,10 @@ footer {
   background-color: var(--darker);
   color: var(--lite);
   padding: 1rem;
+
+  strong {
+    font-weight: 500;
+  }
 }
 
 main {

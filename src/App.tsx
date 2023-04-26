@@ -1,10 +1,10 @@
-// import { useState } from "react";
 import { useEffect, useReducer, ChangeEvent } from "react";
 import "./App.scss";
 import ContactList from "./components/ContactList";
 import ContactCard from "./components/ContactCard";
 import ContactTable from "./components/ContactTable";
 import ContactFilter from "./components/ContactFilter";
+import { JB_LOGO as ReactComponent } from "../public/jb-logo.svg";
 
 export type Contact = {
   ContactName: string;
@@ -49,7 +49,14 @@ export default function App() {
     const { type, payload } = action;
     switch (type) {
       case "load":
-        return { ...state, data: payload };
+        const sorted = payload.sort((a, b) =>
+          a.ContactName > b.ContactName ? 1 : -1
+        );
+        return {
+          ...state,
+          data: sorted,
+          selected: sorted[0],
+        };
       case "select":
         return { ...state, selected: payload };
       case "search":
@@ -82,10 +89,6 @@ export default function App() {
 
     dispatch({ type: "load", payload: contacts });
   };
-
-  useEffect(() => {
-    console.log(state.filter);
-  }, [state.filter]);
 
   // :::::::::::::\ FETCH DATA /:::::::::::::
 
@@ -187,7 +190,24 @@ export default function App() {
           </>
         )}
       </main>
-      <footer>Address Book App by Julian Brooks</footer>
+      <footer>
+        <strong>Address Book App</strong> by Julian Brooks
+        <br />
+        <a target="_blank" href="https://juliancbrooks.com/">
+          Resume
+        </a>{" "}
+        |{" "}
+        <a
+          target="_blank"
+          href="https://github.com/jbrooks890/ADS-Address-Book"
+        >
+          GitHub
+        </a>{" "}
+        |{" "}
+        <a target="_blank" href="https://juliancbrooks.com/">
+          Portfolio
+        </a>
+      </footer>
     </div>
   );
 }

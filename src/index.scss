@@ -34,6 +34,19 @@ body {
   box-sizing: border-box;
 }
 
+::selection {
+  background-color: var(--faint);
+}
+
+a {
+  text-decoration: none;
+  color: var(--mid);
+
+  &:hover {
+    filter: brightness(1.25);
+  }
+}
+
 ::-webkit-scrollbar {
   --size: 10px;
   width: var(--size);

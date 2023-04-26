@@ -5,9 +5,6 @@ import "../styles/ContactList.scss";
 type Props = { contacts: Contact[]; state: State; dispatch: Dispatch<Action> };
 
 export default function ContactList({ contacts, state, dispatch }: Props) {
-  // const { ContactName, ...otherData } = contacts[0];
-  const headers = "ContactName Phone".split(" ");
-
   return (
     <fieldset className="wrapper flex col">
       <legend>{`Contacts: ${state.data!.length}`}</legend>
