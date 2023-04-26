@@ -1,0 +1,70 @@
+.contact-table {
+  margin: {
+    inline: 2rem;
+    bottom: 2rem;
+  }
+  // display: block;
+  width: 75vw;
+  height: 100%;
+  border: {
+    collapse: collapse;
+  }
+  // table-layout: fixed;
+
+  tr > *:first-of-type {
+    text-align: left;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tbody {
+    display: block;
+    padding-inline: 1em;
+    overflow: auto;
+    width: 100%;
+    // height: 100%;
+
+    tr {
+      &.header {
+        background-color: var(--dark);
+        color: var(--lite);
+        font-weight: 500;
+      }
+
+      &:not(.header) {
+        cursor: pointer;
+
+        &:not(:last-of-type) {
+          border-bottom: 1px solid var(--faint);
+        }
+
+        td {
+          &:first-of-type {
+            font: {
+              weight: 500;
+              // variant: small-caps;
+            }
+          }
+        }
+      }
+
+      &.active {
+        background-color: var(--mid);
+        color: var(--lite);
+      }
+
+      td {
+        padding: 0.25em 1em;
+        white-space: nowrap;
+      }
+    }
+  }
+}
+
+@media (hover: hover) {
+  tbody tr:hover {
+    background-color: var(--faint);
+  }
+}

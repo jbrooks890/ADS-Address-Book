@@ -4,7 +4,7 @@
   height: 100%;
   margin-right: 2vw;
   padding: 0;
-  border: 2px solid #ddd {
+  border: 2px solid var(--brite) {
     radius: 10px;
   }
   // padding-inline: 1rem;
@@ -20,7 +20,7 @@
       align: left;
       transform: uppercase;
     }
-    border: 2px solid #ddd {
+    border: 2px solid var(--brite) {
       radius: 100px;
     }
   }

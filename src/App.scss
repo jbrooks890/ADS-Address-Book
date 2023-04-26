@@ -3,10 +3,17 @@
   height: 100vh;
   overflow: hidden;
   flex-grow: 1;
+  background-color: var(--lite);
+}
+
+header,
+footer {
+  align-self: stretch;
 }
 
 header {
-  background-color: silver;
+  background-color: var(--mid);
+  color: var(--lite);
   align-self: stretch;
   margin-bottom: 1rem;
 
@@ -16,27 +23,66 @@ header {
   }
 }
 
+footer {
+  background-color: var(--darker);
+  color: var(--lite);
+  padding: 1rem;
+}
+
+main {
+  flex-grow: 1;
+  overflow: hidden;
+}
+
 .contact-search {
   appearance: none;
-  margin-bottom: 1em;
+  margin-bottom: 0.5rem;
   background-color: transparent;
+  color: var(--mid);
   outline: none;
-  padding: 1em;
+  padding: 0.75em;
   text-align: center;
-  font-size: 1rem;
+  font-size: 1.1rem;
   line-height: 1;
-  border: 2px solid var(--mid) {
+  border: 1.5px solid var(--mid) {
     radius: 100px;
+  }
+
+  &::placeholder {
+    color: var(--mid);
+    font-style: italic;
+    opacity: 0.75;
   }
 }
 
 .contact-box {
+  margin-bottom: 2rem;
   overflow: hidden;
+  flex-grow: 1;
+  // border: 1px solid red;
 
   &.cards-view {
-    flex-direction: column;
     overflow-y: scroll;
   }
+
+  .no-contact {
+    --size: 480px;
+    width: var(--size);
+    height: calc(var(--size) * 0.75);
+    color: var(--mid);
+    font: {
+      weight: normal;
+      style: italic;
+    }
+    border: 2px solid var(--faint) {
+      radius: 10px;
+    }
+    align-self: center;
+  }
+}
+
+.contact-filter {
+  appearance: none;
 }
 
 .mode-selector {
@@ -46,13 +92,13 @@ header {
     border: none;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--mid);
+    color: silver;
     font-size: small;
     padding-inline: 1em;
     background-color: transparent;
 
     &.active {
-      color: silver;
+      color: var(--mid);
     }
 
     &.inactive {
@@ -62,5 +108,11 @@ header {
     &:not(:last-of-type) {
       border-right: 1px solid hsla(0, 0%, 0%, 0.1);
     }
+  }
+}
+
+@media (hover: hover) {
+  .mode-selector button:not(.active):hover {
+    color: var(--mid);
   }
 }

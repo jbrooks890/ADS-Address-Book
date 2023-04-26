@@ -1,0 +1,140 @@
+.contact-filter {
+  position: relative;
+  width: 240px;
+  margin-bottom: 1rem;
+  // border: 1px solid red;
+
+  ul {
+    list-style-type: none;
+    list-style-position: inside;
+    padding-left: 0;
+    text-align: left;
+
+    & ul {
+      & > li {
+        padding-left: 0.5em;
+      }
+    }
+  }
+
+  .display {
+    cursor: pointer;
+    color: var(--mid);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: small;
+    justify-content: space-between;
+
+    &.loaded {
+      border-bottom: 1px solid var(--faint);
+
+      span {
+        &::before {
+          content: "\00d7";
+          position: absolute;
+          left: 0;
+          transform: translateX(-50%);
+          opacity: 0;
+          transition: 0.1s ease-out;
+        }
+      }
+
+      &:hover {
+        span::before {
+          opacity: 1;
+          transform: translateX(-100%);
+        }
+      }
+
+      &::after {
+        content: attr(data-filter-criteria);
+        margin-left: 1em;
+      }
+    }
+
+    &.unloaded {
+      opacity: 0.5;
+      justify-content: center;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    .clear-filter {
+      appearance: none;
+      border: none;
+      line-height: 1;
+      padding: 0;
+    }
+  }
+
+  .menu {
+    --border: 1px solid var(--shadow);
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0;
+    overflow: hidden;
+    background-color: var(--lite);
+    border: {
+      left: var(--border);
+      right: var(--border);
+      bottom: var(--border);
+    }
+    box-shadow: 0 3px 5px var(--faint);
+    transition: 0.1s ease-out;
+
+    &.closed {
+      opacity: 0;
+      max-height: 0;
+      z-index: -1;
+    }
+
+    &.open {
+      opacity: 1;
+      // height: var(--height);
+      // max-height: var(--height);
+      height: 240px;
+      overflow-y: auto;
+      z-index: 1000;
+
+      & > li {
+        & > span {
+          cursor: pointer;
+          display: block;
+          padding-inline: 0.5em;
+          justify-content: space-between;
+          font-weight: 500;
+
+          &:hover {
+            background-color: var(--brite);
+          }
+        }
+
+        .sub-menu {
+          max-height: 0;
+          overflow: hidden;
+          background-color: var(--faint);
+
+          & > li {
+            cursor: pointer;
+            &:hover {
+              background-color: var(--brite);
+            }
+          }
+
+          & > li {
+            padding-left: 0.5em;
+          }
+        }
+
+        &.active {
+          .sub-menu {
+            max-height: none;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,9 +1,16 @@
 :root {
-  --mid: hsl(202, 79%, 64%);
+  --lite: #eee;
+  --brite: #ddd;
+  --mid: hsl(202, 70%, 64%);
+  --dark: hsl(220, 40%, 45%);
+  --darker: hsl(240, 40%, 25%);
+  --shadow: hsla(0, 0%, 0%, 0.1);
+  --faint: hsla(0, 0%, 0%, 0.05);
 }
 
 html {
-  background-color: #eee;
+  background-color: var(--darker);
+  color: var(--dark);
   margin: 0;
   height: 100vh;
   overflow: hidden;
@@ -28,7 +35,9 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
+  --size: 10px;
+  width: var(--size);
+  height: var(--size);
 
   &-track {
     background: transparent;
@@ -41,6 +50,10 @@ body {
     cursor: grab;
     background: var(--mid);
     border-radius: 100px;
+  }
+
+  &-corner {
+    background: transparent;
   }
 }
 

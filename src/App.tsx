@@ -3,6 +3,8 @@ import { useEffect, useReducer, ChangeEvent } from "react";
 import "./App.scss";
 import ContactList from "./components/ContactList";
 import ContactCard from "./components/ContactCard";
+import ContactTable from "./components/ContactTable";
+import ContactFilter from "./components/ContactFilter";
 
 export type Contact = {
   ContactName: string;
@@ -23,7 +25,7 @@ export type State = {
   data: Contact[] | null;
   selected: Contact | null;
   search: string;
-  filter: string;
+  filter: { [T in keyof Contact]: any } | null;
   view: "split" | "table" | "cards";
 };
 
@@ -31,7 +33,7 @@ export type Action =
   | { type: "load"; payload: Contact[] }
   | { type: "select"; payload: Contact }
   | { type: "search"; payload: string }
-  | { type: "filter"; payload: string }
+  | { type: "filter"; payload: State["filter"] }
   | { type: "view"; payload: State["view"] };
 
 export default function App() {
@@ -39,7 +41,7 @@ export default function App() {
     data: null,
     selected: null,
     search: "",
-    filter: "",
+    filter: null,
     view: "split",
   };
 
@@ -51,10 +53,14 @@ export default function App() {
       case "select":
         return { ...state, selected: payload };
       case "search":
-        return { ...state, search: payload };
+        return {
+          ...state,
+          search: payload,
+        };
       case "view":
         return { ...state, view: payload };
       case "filter":
+        return { ...state, search: "", filter: payload };
       default:
         return state;
     }
@@ -74,9 +80,12 @@ export default function App() {
       }
     );
 
-    // console.log({ contacts });
     dispatch({ type: "load", payload: contacts });
   };
+
+  useEffect(() => {
+    console.log(state.filter);
+  }, [state.filter]);
 
   // :::::::::::::\ FETCH DATA /:::::::::::::
 
@@ -94,24 +103,35 @@ export default function App() {
     fetchData();
   }, []);
 
+  // :::::::::::::\ SEARCH CONTACT /:::::::::::::
+
   const searchContact = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch({ type: "search", payload: e.target.value });
   };
 
-  const renderView = () => {
-    const output = state.data!.filter(contact =>
-      contact.ContactName.match(new RegExp(state.search, "i"))
-    );
+  // :::::::::::::\ RENDER VIEW /:::::::::::::
 
-    switch (state.view) {
+  const renderView = () => {
+    const { data, search, filter, view, selected } = state;
+    let output = data!.filter(contact =>
+      contact.ContactName.match(new RegExp(search, "i"))
+    );
+    if (filter && Object.keys(filter).length) {
+      output = data!.filter(contact => {
+        const [[field, value]] = Object.entries(filter);
+        return contact[field] === value;
+      });
+    }
+
+    switch (view) {
       case "split":
         return (
           <>
             <ContactList contacts={output} state={state} dispatch={dispatch} />
-            {state.selected ? (
-              <ContactCard contact={state.selected} />
+            {selected ? (
+              <ContactCard contact={selected} />
             ) : (
-              <h2>Select Contact</h2>
+              <h2 className="no-contact flex center">Select Contact</h2>
             )}
           </>
         );
@@ -120,7 +140,9 @@ export default function App() {
           <ContactCard key={i} contact={contact} />
         ));
       case "table":
-        return;
+        return (
+          <ContactTable contacts={output} state={state} dispatch={dispatch} />
+        );
     }
   };
 
@@ -129,33 +151,43 @@ export default function App() {
       <header>
         <h1>Address Book</h1>
       </header>
-      <input
-        type="text"
-        className="contact-search"
-        placeholder="Search Name"
-        spellCheck={false}
-        onChange={e => searchContact(e)}
-      />
-      <div className="mode-selector flex">
-        {"split cards table".split(" ").map((mode, i) => (
-          <button
-            key={i}
-            type="button"
-            className={state.view === mode ? "active" : "inactive"}
-            onClick={() =>
-              dispatch({ type: "view", payload: mode as State["view"] })
-            }
-          >
-            {mode}
-          </button>
-        ))}
-      </div>
-      {state.data && (
-        <div className={`contact-box flex ${state.view}-view`}>
-          {renderView()}
+      <main className="flex col middle">
+        <div className="mode-selector flex">
+          {"split cards table".split(" ").map((mode, i) => (
+            <button
+              key={i}
+              type="button"
+              className={state.view === mode ? "active" : "inactive"}
+              onClick={() =>
+                dispatch({ type: "view", payload: mode as State["view"] })
+              }
+            >
+              {mode}
+            </button>
+          ))}
         </div>
-      )}
-      <footer>Julian Brooks</footer>
+        <input
+          type="text"
+          className="contact-search"
+          placeholder="Search Name"
+          spellCheck={false}
+          value={state.search ?? ""}
+          onChange={e => searchContact(e)}
+        />
+        {state.data && (
+          <>
+            <ContactFilter state={state} dispatch={dispatch} />
+            <div
+              className={`contact-box flex ${
+                ["table", "cards"].includes(state.view) ? "col" : "inline"
+              } ${state.view}-view`}
+            >
+              {renderView()}
+            </div>
+          </>
+        )}
+      </main>
+      <footer>Address Book App by Julian Brooks</footer>
     </div>
   );
 }
