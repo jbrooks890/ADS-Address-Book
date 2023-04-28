@@ -1,0 +1,78 @@
+.contact-draft {
+  background-color: hsl(0, 0%, 99%);
+  width: 480px;
+  height: 75vh;
+  padding: 2rem;
+  border: {
+    radius: 10px;
+  }
+  box-shadow: 5px 5px 5px var(--shadow);
+  overflow: hidden;
+
+  .form-body {
+    overflow-y: auto;
+    width: 100%;
+    padding-right: 1em;
+
+    label {
+      margin-bottom: 1rem;
+
+      &.required {
+        .label-text::after {
+          content: "*";
+          margin-left: 0.25ch;
+          color: var(--mid);
+        }
+      }
+    }
+
+    input {
+      appearance: none;
+      width: 100%;
+      padding: 0.5em;
+      border: 1.5px solid var(--dark) {
+        radius: 5px;
+      }
+      background-color: transparent;
+      color: inherit;
+      outline-color: var(--mid);
+    }
+  }
+
+  .button-cache {
+    padding-top: 1em;
+
+    button {
+      cursor: pointer;
+      appearance: none;
+      color: var(--dark);
+      transition: 0.1s ease-out;
+
+      &[type="submit"] {
+        background-color: transparent;
+        margin-bottom: 0.5em;
+        padding: 0.5em 1em;
+        border: 2px solid var(--dark) {
+          radius: 5px;
+        }
+        text-transform: uppercase;
+        font-size: 1rem;
+
+        &:hover {
+          background-color: var(--dark);
+          color: hsl(0, 0%, 99%);
+        }
+      }
+
+      &[type="reset"] {
+        border: none;
+        background-color: transparent;
+        opacity: 0.75;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

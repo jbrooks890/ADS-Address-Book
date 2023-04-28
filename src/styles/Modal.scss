@@ -1,0 +1,46 @@
+.modal__overlay {
+  position: absolute;
+  inset: 0;
+  transition: 0.1s ease-out;
+  z-index: 9999;
+
+  &.screen {
+    background-color: var(--faint);
+    backdrop-filter: blur(3px);
+  }
+}
+
+.modal__wrapper {
+  position: fixed;
+  inset: 0;
+  box-sizing: border-box;
+  z-index: 10000;
+
+  .modal {
+    position: relative;
+
+    &__close {
+      --offset: 0.5rem;
+      cursor: pointer;
+      position: absolute;
+      top: var(--offset);
+      right: var(--offset);
+      appearance: none;
+      border: none;
+      background-color: transparent;
+      font-size: 1.5rem;
+      color: var(--mid);
+      opacity: 0.5;
+      transition: 0.1s ease-out;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+/* %%%%%%%%%%%%%%%/ HOVER \%%%%%%%%%%%%%%% */
+
+@media (hover: hover) {
+}
