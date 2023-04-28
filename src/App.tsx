@@ -125,6 +125,13 @@ export default function App() {
     dispatch({ type: "search", payload: e.target.value });
   };
 
+  // :::::::::::::\ ADD CONTACT /:::::::::::::
+
+  const addContact = (contact: Contact) => {
+    setIsShowing(true);
+    dispatch({ type: "update", payload: contact });
+  };
+
   // :::::::::::::\ EDIT CONTACT /:::::::::::::
 
   const editContact = (contact: Contact) => {

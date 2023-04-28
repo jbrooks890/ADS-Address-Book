@@ -9,19 +9,44 @@
   }
   // padding-inline: 1rem;
   legend {
-    margin-left: 1.5em;
+    // width: 100%;
+    flex-grow: 1;
+    // margin-inline: 1.5em;
     padding-inline: 1em;
-    color: silver;
-    font: {
-      size: small;
-      weight: 500;
+    // border: 1px solid red;
+
+    span {
+      padding-inline: 1em;
+      color: silver;
+      font: {
+        size: small;
+        weight: 500;
+      }
+      text: {
+        align: left;
+        transform: uppercase;
+      }
+      border: 2px solid var(--brite) {
+        radius: 100px;
+      }
     }
-    text: {
-      align: left;
-      transform: uppercase;
-    }
-    border: 2px solid var(--brite) {
-      radius: 100px;
+
+    button {
+      --size: 2rem;
+      cursor: pointer;
+      width: var(--size);
+      height: var(--size);
+      font-size: 1rem;
+      color: silver;
+      border: 2px solid var(--brite) {
+        radius: 50%;
+      }
+      transition: 0.1s ease-out;
+
+      &:hover {
+        background-color: var(--brite);
+        color: var(--lite);
+      }
     }
   }
 

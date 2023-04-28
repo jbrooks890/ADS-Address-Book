@@ -58,4 +58,20 @@
       }
     }
   }
+
+  .mod-buttons {
+    button {
+      appearance: none;
+      cursor: pointer;
+      border: none;
+      outline: none;
+      color: var(--mid);
+      background-color: transparent;
+      transition: 0.1s ease-out;
+
+      &:hover {
+        color: var(--dark);
+      }
+    }
+  }
 }

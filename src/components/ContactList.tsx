@@ -7,7 +7,10 @@ type Props = { contacts: Contact[]; state: State; dispatch: Dispatch<Action> };
 export default function ContactList({ contacts, state, dispatch }: Props) {
   return (
     <fieldset className="wrapper flex col">
-      <legend>{`Contacts: ${state.data!.length}`}</legend>
+      <legend className="flex middle">
+        <span>{`Contacts: ${state.data!.length}`}</span>
+        <button className="flex center">+</button>
+      </legend>
       {contacts?.length ? (
         <div className="contact-list-wrap flex col">
           <ul className="contact-list flex col">
