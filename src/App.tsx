@@ -28,15 +28,15 @@ export type State = {
   search: string;
   filter: { [T in keyof Contact]: any } | null;
   view: "split" | "table" | "cards";
-  draft: Contact | null;
+  draft: { contact: Contact | undefined | null; active: boolean };
 };
 
 export type Action =
-  | { type: "load"; payload: Contact[] }
+  | { type: "load"; payload: { list: Contact[]; selection?: Contact } }
   | { type: "select"; payload: Contact }
   | { type: "search"; payload: string }
   | { type: "filter"; payload: State["filter"] }
-  | { type: "update"; payload: Contact }
+  | { type: "update"; payload: Contact | undefined }
   | { type: "view"; payload: State["view"] };
 
 // =========================================================
@@ -50,7 +50,7 @@ export default function App() {
     search: "",
     filter: null,
     view: "split",
-    draft: null,
+    draft: { contact: undefined, active: false },
   };
 
   const reducer = (state: typeof initialState, action: Action): State => {
@@ -59,14 +59,16 @@ export default function App() {
       list.sort((a, b) => (a.ContactName > b.ContactName ? 1 : -1));
     switch (type) {
       case "load":
-        const sorted = sort(payload);
+        const sorted = sort(payload.list);
         return {
           ...state,
           data: sorted,
-          selected: sorted[0],
+          selected: payload.selection
+            ? sorted[sorted.indexOf(payload.selection)]
+            : sorted[0],
         };
       case "update":
-        return { ...state, draft: payload };
+        return { ...state, draft: { contact: payload, active: true } };
       case "select":
         return { ...state, selected: payload };
       case "search":
@@ -100,7 +102,7 @@ export default function App() {
       }
     );
 
-    dispatch({ type: "load", payload: contacts });
+    dispatch({ type: "load", payload: { list: contacts } });
   };
 
   // :::::::::::::\ FETCH DATA /:::::::::::::
@@ -127,9 +129,9 @@ export default function App() {
 
   // :::::::::::::\ ADD CONTACT /:::::::::::::
 
-  const addContact = (contact: Contact) => {
+  const addContact = () => {
     setIsShowing(true);
-    dispatch({ type: "update", payload: contact });
+    dispatch({ type: "update", payload: undefined });
   };
 
   // :::::::::::::\ EDIT CONTACT /:::::::::::::
@@ -157,7 +159,12 @@ export default function App() {
       case "split":
         return (
           <>
-            <ContactList contacts={output} state={state} dispatch={dispatch} />
+            <ContactList
+              contacts={output}
+              state={state}
+              dispatch={dispatch}
+              add={addContact}
+            />
             {selected ? (
               <ContactCard
                 contact={selected}
@@ -248,11 +255,11 @@ export default function App() {
           </a>
         </footer>
       </div>
-      {state.draft &&
+      {state.draft.active &&
         isShowing &&
         modal(
           <ContactDraft
-            contact={state.draft}
+            contact={state.draft.contact!}
             state={state}
             dispatch={dispatch}
             closeModal={close}

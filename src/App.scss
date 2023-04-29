@@ -36,6 +36,7 @@ footer {
 main {
   flex-grow: 1;
   overflow: hidden;
+  margin-bottom: 5rem;
 }
 
 .contact-search {
@@ -60,7 +61,6 @@ main {
 }
 
 .contact-box {
-  margin-bottom: 2rem;
   overflow: hidden;
   flex-grow: 1;
   // border: 1px solid red;

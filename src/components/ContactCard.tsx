@@ -28,7 +28,7 @@ export default function ContactCard({ contact, state, dispatch, edit }: Props) {
   const deleteContact = () => {
     const updated = [...state.data!];
     updated.splice(updated.indexOf(contact), 1);
-    dispatch({ type: "load", payload: updated });
+    dispatch({ type: "load", payload: { list: updated } });
     close();
   };
 

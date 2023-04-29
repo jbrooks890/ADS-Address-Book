@@ -34,13 +34,16 @@ export default function ContactDraft({
   const [draft, setDraft] = useState<Contact>(contact || newContact);
 
   const create = () =>
-    dispatch({ type: "load", payload: [...state.data!, draft] });
+    dispatch({
+      type: "load",
+      payload: { list: [...state.data!, draft], selection: draft },
+    });
 
   const edit = () => {
     const current = contact && state.data!.indexOf(contact);
     const updated = [...state.data!];
     updated[current!] = draft;
-    dispatch({ type: "load", payload: updated });
+    dispatch({ type: "load", payload: { list: updated, selection: draft } });
   };
 
   // useEffect(() => console.log({ draft }), [draft]);

@@ -2,14 +2,28 @@ import type { State, Contact, Action } from "../App";
 import type { Dispatch } from "react";
 import "../styles/ContactList.scss";
 
-type Props = { contacts: Contact[]; state: State; dispatch: Dispatch<Action> };
+type Props = {
+  contacts: Contact[];
+  add: Function;
+  state: State;
+  dispatch: Dispatch<Action>;
+};
 
-export default function ContactList({ contacts, state, dispatch }: Props) {
+export default function ContactList({ contacts, add, state, dispatch }: Props) {
   return (
     <fieldset className="wrapper flex col">
       <legend className="flex middle">
         <span>{`Contacts: ${state.data!.length}`}</span>
-        <button className="flex center">+</button>
+        <button
+          type="button"
+          className="flex center"
+          onClick={e => {
+            e.preventDefault();
+            add();
+          }}
+        >
+          +
+        </button>
       </legend>
       {contacts?.length ? (
         <div className="contact-list-wrap flex col">
