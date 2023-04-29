@@ -1,17 +1,22 @@
 .wrapper {
   position: relative;
   width: 480px;
-  height: 100%;
+  // height: 100%;
   margin-right: 2vw;
+  margin-block: 1em;
   padding: 0;
   border: 2px solid var(--brite) {
     radius: 10px;
   }
+
   // padding-inline: 1rem;
   legend {
     // width: 100%;
-    // margin-inline: 1.5em;
-    padding-inline: 0.75em;
+    margin-inline: 1.5em;
+    // display: inline-flex;
+    text-align: left;
+    padding-inline: 0.5em;
+    justify-content: space-between;
     // border: 1px solid red;
 
     span {
@@ -29,24 +34,29 @@
         radius: 100px;
       }
     }
+  }
+  .add-contact {
+    --size: 2rem;
+    cursor: pointer;
+    position: absolute;
+    top: calc(-0.75em + 1px);
+    right: 1em;
+    width: var(--size);
+    height: var(--size);
+    padding: 0;
+    font-size: 1rem;
+    color: silver;
+    border: 2px solid var(--brite) {
+      radius: 50%;
+    }
+    transform: translateY(-50%);
+    transition: 0.1s ease-out;
+    z-index: 100;
 
-    button {
-      --size: 2rem;
-      cursor: pointer;
-      width: var(--size);
-      height: var(--size);
-      font-size: 1rem;
-      color: silver;
-      border: 2px solid var(--brite) {
-        radius: 50%;
-      }
-      transition: 0.1s ease-out;
-
-      &:hover {
-        background-color: var(--dark);
-        border-color: var(--dark);
-        color: #fcfcfc;
-      }
+    &:hover {
+      background-color: var(--dark);
+      border-color: var(--dark);
+      color: #fcfcfc;
     }
   }
 

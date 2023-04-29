@@ -50,7 +50,7 @@ export default function ContactDraft({
 
   return (
     <form className="contact-draft flex col middle">
-      <h2>{contact?.ContactName ?? "New"}</h2>
+      <h2>{contact?.ContactName ?? "New Contact"}</h2>
       <div className="form-body flex col">
         {Object.keys(newContact).map((field, i) => {
           const value = draft[field];

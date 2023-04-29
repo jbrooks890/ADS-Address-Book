@@ -14,17 +14,17 @@ export default function ContactList({ contacts, add, state, dispatch }: Props) {
     <fieldset className="wrapper flex col">
       <legend className="flex middle">
         <span>{`Contacts: ${state.data!.length}`}</span>
-        <button
-          type="button"
-          className="flex center"
-          onClick={e => {
-            e.preventDefault();
-            add();
-          }}
-        >
-          +
-        </button>
       </legend>
+      <button
+        type="button"
+        className="add-contact flex center"
+        onClick={e => {
+          e.preventDefault();
+          add();
+        }}
+      >
+        +
+      </button>
       {contacts?.length ? (
         <div className="contact-list-wrap flex col">
           <ul className="contact-list flex col">

@@ -87,9 +87,6 @@ export default function App() {
   const [state, dispatch] = useReducer<typeof reducer>(reducer, initialState);
   const { modal, isShowing, setIsShowing, close } = useModal();
 
-  // useEffect(() => console.log(state.draft, { isShowing }), [state.draft]);
-
-  // const XHR = new XMLHttpRequest();
   const convert = (data: Document) => {
     const contacts: Contact[] = [...data.querySelectorAll("Contact")].map(
       contact => {
