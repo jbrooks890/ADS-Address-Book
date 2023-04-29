@@ -29,12 +29,13 @@
       border: none;
       background-color: transparent;
       font-size: 1.5rem;
-      color: var(--mid);
-      opacity: 0.5;
+      color: var(--brite);
+      // opacity: 0.5;
       transition: 0.1s ease-out;
 
       &:hover {
-        opacity: 1;
+        color: var(--dark);
+        // opacity: 1;
       }
     }
   }

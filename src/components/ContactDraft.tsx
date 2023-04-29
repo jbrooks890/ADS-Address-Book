@@ -1,6 +1,6 @@
 import type { State, Contact, Action } from "../App";
 import type { Dispatch } from "react";
-import { useState, useEffect, ChangeEvent } from "react";
+import { useState, ChangeEvent } from "react";
 import "../styles/ContactDraft.scss";
 
 type Props = {
@@ -53,7 +53,7 @@ export default function ContactDraft({
       <h2>{contact?.ContactName ?? "New Contact"}</h2>
       <div className="form-body flex col">
         {Object.keys(newContact).map((field, i) => {
-          const value = draft[field];
+          const value = draft[field as keyof Contact];
           const isRequired = field !== "Region";
 
           // console.log({ field, value });
