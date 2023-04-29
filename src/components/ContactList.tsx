@@ -32,15 +32,21 @@ export default function ContactList({ contacts, add, state, dispatch }: Props) {
               .sort((a, b) => (a.ContactName > b.ContactName ? 1 : -1))
               .map((contact, i) => {
                 const { ContactName, Phone } = contact;
+                const isSelected = state.selected === contact;
+                const select = () =>
+                  dispatch({ type: "select", payload: contact });
+
                 return (
                   <li
                     key={i}
-                    onClick={() =>
-                      dispatch({ type: "select", payload: contact })
-                    }
+                    onClick={select}
+                    tabIndex={isSelected ? -1 : 0}
                     className={`${
-                      state.selected === contact ? "selected" : "not-selected"
+                      isSelected ? "selected" : "not-selected"
                     } flex`}
+                    onKeyDown={e =>
+                      !isSelected && e.key === "Enter" && select()
+                    }
                   >
                     <div data-field={"ContactName"}>{ContactName}</div>
                     <div data-field={"Phone"}>{Phone}</div>

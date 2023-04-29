@@ -95,7 +95,7 @@ export default function App() {
             const { tagName, textContent } = child;
             return [tagName, textContent];
           })
-        );
+        ) as unknown as Contact;
       }
     );
 
@@ -148,7 +148,7 @@ export default function App() {
     if (filter && Object.keys(filter).length) {
       output = data!.filter(contact => {
         const [[field, value]] = Object.entries(filter);
-        return contact[field] === value;
+        return contact[field as keyof Contact] === value;
       });
     }
 

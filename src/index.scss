@@ -32,6 +32,14 @@ body {
 
 * {
   box-sizing: border-box;
+
+  &:focus {
+    outline: {
+      color: var(--mid);
+      style: solid;
+      width: 2px;
+    }
+  }
 }
 
 ::selection {

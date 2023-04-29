@@ -101,6 +101,11 @@ main {
     padding-inline: 1em;
     background-color: transparent;
 
+    &:focus {
+      outline: none;
+      background-color: hsla(0, 0%, 0%, 0.01);
+    }
+
     &.active {
       color: var(--mid);
     }

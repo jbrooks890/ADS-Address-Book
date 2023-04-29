@@ -58,6 +58,11 @@
       border-color: var(--dark);
       color: #fcfcfc;
     }
+
+    &:focus {
+      outline: none;
+      border-color: var(--mid);
+    }
   }
 
   .contact-list-wrap {
@@ -74,7 +79,7 @@
 
     .contact-list {
       margin: 0;
-      padding-inline: 0.5em;
+      padding: 2px 0.5em;
       height: 100%;
       // border: 1px solid orange;
       overflow: hidden scroll;
@@ -84,6 +89,10 @@
         padding: 0.25em 1em;
         border-radius: 5px;
 
+        &:focus {
+          outline: none;
+        }
+
         &.selected {
           background-color: var(--mid);
           cursor: default;
@@ -92,6 +101,13 @@
 
         &:not(.selected) {
           cursor: pointer;
+
+          &:hover {
+            background-color: hsla(0, 0%, 0%, 0.05);
+          }
+          &:focus {
+            background-color: hsla(0, 0%, 0%, 0.05);
+          }
         }
 
         &:not(:last-of-type) {
@@ -107,12 +123,6 @@
             font-weight: 500;
           }
         }
-      }
-    }
-
-    @media (hover: hover) {
-      .contact-list li:not(.selected):hover {
-        background-color: hsla(0, 0%, 0%, 0.05);
       }
     }
   }
